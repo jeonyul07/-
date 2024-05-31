@@ -1,0 +1,75 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetris</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .game-board {
+            width: 300px;
+            height: 600px;
+            border: 1px solid #ccc;
+            overflow: hidden;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            grid-template-rows: repeat(20, 1fr);
+            border: 1px solid #ddd;
+        }
+
+        .shape {
+            background-color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-board">
+        <div class="grid"></div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const grid = document.querySelector('.grid');
+            const width = 10;
+            let squares = Array.from(document.querySelectorAll('.grid div'));
+
+            // Tetris shapes
+            const lShape = [
+                [1, width+1, width*2+1, 2],
+                [width, width+1, width+2, width*2+2],
+                [1, width+1, width*2+1, width*2],
+                [width, width*2, width*2+1, width*2+2]
+            ];
+
+            let currentPosition = 4;
+            let currentRotation = 0;
+            let current = lShape[currentRotation];
+
+            // Draw Tetris shape
+            function draw() {
+                current.forEach(index => {
+                    squares[currentPosition + index].classList.add('shape');
+                });
+            }
+
+            // Undraw Tetris shape
+            function undraw() {
+                current.forEach(index => {
+                    squares[currentPosition + index].classList.remove('shape');
+                });
+            }
+
+            draw();
+
+        });
+    </script>
+</body>
+</html>
